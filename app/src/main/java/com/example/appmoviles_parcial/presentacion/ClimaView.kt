@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +40,10 @@ fun CargandoView(){
 }
 @Composable
 fun ErrorView(mensaje: String){
-    Text(text = mensaje)
+    Text(
+        text = mensaje,
+        style = MaterialTheme.typography.headlineLarge,
+        color = MaterialTheme.colorScheme.error)
 
 }
 @Composable
@@ -47,7 +51,8 @@ fun ExitosoView(clima: Clima){
 
 }@Composable
 fun VacioView(){
-    Text(text = "No hay anda que mostrar")
+    Text(
+        text = "No hay anda que mostrar")
 
 }
 
