@@ -5,7 +5,7 @@ sealed class ClimaEstado {
     data object Cargando: ClimaEstado()
     //data class puede recibir parametro, data object mp
     data class  Exitoso(val clima: Clima): ClimaEstado()
-    data class Error(val mensaje: Clima): ClimaEstado()
+    data class Error(val mensaje: String): ClimaEstado()
 }
 
 

@@ -5,7 +5,10 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun ClimaPage() {
+fun ClimaPage(
+
+    modifier: Modifier = Modifier
+) {
 
     val viewModel = ClimaViewModel()
     ClimaView(
