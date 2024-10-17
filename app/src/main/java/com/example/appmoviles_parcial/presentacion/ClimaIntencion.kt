@@ -1,4 +1,5 @@
 package com.example.appmoviles_parcial.presentacion
 
-class ClimaIntencion {
+sealed class ClimaIntencion {
+    data object actualizar: ClimaIntencion()
 }

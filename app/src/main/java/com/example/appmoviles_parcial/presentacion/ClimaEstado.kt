@@ -13,9 +13,9 @@ sealed class ClimaEstado {
 data class Clima(
   val temperatura: Double,
   val sensacionTermica: Double,
-          val estado: String
+  val estado: String,
   val humedad: Double,
   val velocidadDelViento: Double,
-          val latitud: Double,
-                  val longitud: Double
+  val latitud: Double,
+  val longitud: Double
 )
