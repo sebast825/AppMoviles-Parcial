@@ -1,8 +1,10 @@
 package com.example.appmoviles_parcial.presentacion
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.time.delay
 
 class ClimaViewModel {
 
@@ -16,9 +18,11 @@ class ClimaViewModel {
     }
 
     private fun actualizar(){
-        estado = ClimaEstado.Cargando
-        //trae datos desde un repo
 
-        estado = ClimaEstado.Error("No funca x ahora")
+            Log.d("Clima View model", "actualizar")
+
+            estado = ClimaEstado.Cargando
+            //estado = ClimaEstado.Error("No funca x ahora")
+
     }
 }
