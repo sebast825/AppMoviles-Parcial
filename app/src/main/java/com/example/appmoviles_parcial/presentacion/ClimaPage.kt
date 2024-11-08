@@ -13,7 +13,7 @@ fun ClimaPage(
     modifier: Modifier = Modifier
 ) {
 
-    val viewModel : ClimaViewModel = ViewModel()
+    val viewModel : ClimaViewModel = viewModel()
     
     ClimaView(
         modifier = Modifier,
