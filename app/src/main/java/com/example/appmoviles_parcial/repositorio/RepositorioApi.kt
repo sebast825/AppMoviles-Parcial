@@ -1,14 +1,69 @@
 package com.example.appmoviles_parcial.repositorio
 
 import android.util.Log
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
+import io.ktor.http.HttpStatusCode
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 class RepositorioApi : Repositorio {
 
 
+    private val cliente = HttpClient(){
+        install(ContentNegotiation){
+            json(Json {
+                ignoreUnknownKeys = true
+            })
+        }
+    }
 
-    override  fun traerPokemon(): String {
-        Log.d("elem","traer Pokemon")
-        return "llegamo al poke"
+    override suspend fun traerPokemon(): String {
+        val respuesta = cliente.get("https://pokeapi.co/api/v2/pokemon/ditto")
+
+        if (respuesta.status == HttpStatusCode.OK){
+            val pokemon = respuesta.body<Pokemon>()
+            return pokemon.abilities[0].ability.name
+        }else{
+            throw Exception()
+        }
+
+
     }
 
 }
+@Serializable
+data class Pokemon(
+    val abilities: List<AbilitySlot>,
+    val base_experience: Int,
+    val cries: Cries,
+    val forms: List<Form>
+)
+@Serializable
+
+data class AbilitySlot(
+    val ability: Ability,
+    val is_hidden: Boolean,
+    val slot: Int
+)
+@Serializable
+
+data class Ability(
+    val name: String,
+    val url: String
+)
+@Serializable
+
+data class Cries(
+    val latest: String,
+    val legacy: String
+)
+@Serializable
+
+data class Form(
+    val name: String,
+    val url: String
+)

@@ -47,7 +47,7 @@ fun ClimaView (
 
 @Composable
 fun CargandoView(){
-    Log.d("cargando", "vista")
+
     Text(text = "Cargando")
 }
 
@@ -61,8 +61,11 @@ fun ErrorView(mensaje: String){
 }
 @Composable
 fun ExitosoView(clima: Clima){
+    Text(text = clima.estado)
 
-}@Composable
+}
+
+@Composable
 fun VacioView(){
     Text(
         text = "No hay anda que mostrar")
