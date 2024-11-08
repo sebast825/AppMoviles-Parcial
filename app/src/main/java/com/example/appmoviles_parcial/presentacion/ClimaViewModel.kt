@@ -5,8 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.time.delay
+import androidx.lifecycle.ViewModel
 
-class ClimaViewModel {
+class ClimaViewModel : ViewModel() {
 
     var estado by mutableStateOf<ClimaEstado>(ClimaEstado.Vacio)
 
