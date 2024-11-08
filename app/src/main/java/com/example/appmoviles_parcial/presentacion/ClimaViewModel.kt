@@ -6,8 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.time.delay
 import androidx.lifecycle.ViewModel
+import com.example.appmoviles_parcial.repositorio.Repositorio
 
-class ClimaViewModel : ViewModel() {
+class ClimaViewModel (
+    val repositorio : Repositorio
+
+): ViewModel() {
 
     var estado by mutableStateOf<ClimaEstado>(ClimaEstado.Vacio)
 
@@ -21,7 +25,7 @@ class ClimaViewModel : ViewModel() {
     private fun actualizar(){
 
             Log.d("Clima View model", "actualizar")
-
+            var repo = repositorio.traerPokemon()
             estado = ClimaEstado.Cargando
             //estado = ClimaEstado.Error("No funca x ahora")
 
