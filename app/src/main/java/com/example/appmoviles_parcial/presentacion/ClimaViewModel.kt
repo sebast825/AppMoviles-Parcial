@@ -20,7 +20,7 @@ class ClimaViewModel (
     //es la unica funcion publica que ejecuta el viewModel, el resto son privadas
     fun ejecutar(intencion: ClimaIntencion){
         when (intencion){
-            ClimaIntencion.actualizar -> actualizar()
+            ClimaIntencion.actualizarClima -> actualizar()
         }
     }
 

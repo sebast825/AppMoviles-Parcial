@@ -38,7 +38,7 @@ fun ClimaView (
         Button(onClick = {
             Log.d("llega el boton","asd")
 
-            ejecutar(ClimaIntencion.actualizar)
+            ejecutar(ClimaIntencion.actualizarClima)
         }) {
             Text(text = "Refrescar")
         }
