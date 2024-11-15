@@ -31,7 +31,7 @@ fun ClimaView (
         when(estado){
             is ClimaEstado.Cargando -> CargandoView()
             is ClimaEstado.Error -> ErrorView(estado.mensaje)
-            is ClimaEstado.Exitoso -> ExitosoView(estado.clima)
+            is ClimaEstado.Exitoso -> ExitosoView(estado.ciudad)
             is ClimaEstado.Vacio -> VacioView()
 
         }
@@ -60,8 +60,8 @@ fun ErrorView(mensaje: String){
 
 }
 @Composable
-fun ExitosoView(clima: Clima){
-    Text(text = clima.estado)
+fun ExitosoView(nombre: String){
+    Text(text = nombre)
 
 }
 

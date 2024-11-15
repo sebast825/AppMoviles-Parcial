@@ -54,13 +54,21 @@ class RepositorioApi : Repositorio {
         }
     }
 
-    override suspend fun traerClima(lat: Float, lon: Float): Clima {
-        TODO("Not yet implemented")
+    override suspend fun traerClima(lat: Double, lon: Double): Clima {
+        val respuesta = cliente.get("https://api.openweathermap.org/data/2.5/weather"){
+            parameter("lat",lat)
+            parameter("lon",lon)
+            parameter("units","metric")
+            parameter("appid",apiKey)
+        }
+        if (respuesta.status == HttpStatusCode.OK){
+            val clima = respuesta.body<Clima>()
+            return clima
+        }else{
+            throw Exception()
+        }
     }
 
-    override suspend fun traerPronostico(nombre: String): List<ListForecast> {
-        TODO("Not yet implemented")
-    }
 
 }
 

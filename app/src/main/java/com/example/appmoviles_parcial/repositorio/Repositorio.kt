@@ -7,6 +7,6 @@ import com.example.appmoviles_parcial.repositorio.modelos.ListForecast
 interface Repositorio {
     suspend fun traerPokemon(): String
     suspend fun buscarCiudad(ciudad: String): List<Ciudad>
-    suspend fun traerClima(lat: Float, lon: Float) : Clima
-    suspend fun traerPronostico(nombre: String) : List<ListForecast>
+   suspend fun traerClima(lat: Double, lon: Double) : Clima
+   // suspend fun traerPronostico(nombre: String) : List<ListForecast>
 }

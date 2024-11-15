@@ -4,8 +4,12 @@ sealed class ClimaEstado {
     data object Vacio: ClimaEstado()
     data object Cargando: ClimaEstado()
     //data class puede recibir parametro, data object mp
-    data class  Exitoso(val clima: Clima): ClimaEstado()
-    data class Error(val mensaje: String): ClimaEstado()
+    data class Exitoso (
+        val ciudad: String = "",
+        val temperatura: Double = 0.0,
+        val descripcion: String= "",
+        val st :Double = 0.0,
+    ) : ClimaEstado()    data class Error(val mensaje: String): ClimaEstado()
 }
 
 

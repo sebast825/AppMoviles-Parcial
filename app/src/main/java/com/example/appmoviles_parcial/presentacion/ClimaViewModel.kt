@@ -11,8 +11,9 @@ import com.example.appmoviles_parcial.repositorio.Repositorio
 import kotlinx.coroutines.launch
 
 class ClimaViewModel (
-    val repositorio : Repositorio
-
+    val repositorio : Repositorio,
+    val lat : Double,
+    val lon : Double,
 ): ViewModel() {
 
     var estado by mutableStateOf<ClimaEstado>(ClimaEstado.Vacio)
@@ -20,7 +21,7 @@ class ClimaViewModel (
     //es la unica funcion publica que ejecuta el viewModel, el resto son privadas
     fun ejecutar(intencion: ClimaIntencion){
         when (intencion){
-            ClimaIntencion.actualizarClima -> actualizar()
+            ClimaIntencion.actualizarClima -> getClima()
         }
     }
 
@@ -34,5 +35,24 @@ class ClimaViewModel (
             estado = ClimaEstado.Cargando
             //estado = ClimaEstado.Error("No funca x ahora")
 
+    }
+
+    fun getClima() {
+        estado = ClimaEstado.Cargando
+        viewModelScope.launch {
+            try {
+                val clima = repositorio.traerClima(lat = lat, lon = lon)
+                estado = ClimaEstado.Exitoso(
+                    ciudad = clima.name,
+                    temperatura = clima.main.temp,
+                    descripcion = clima.weather.first().description,
+                    st = clima.main.feels_like,
+
+                )
+            } catch (exception: Exception) {
+                estado = ClimaEstado.Error(exception.localizedMessage ?: "error desconocido")
+            }
+
+        }
     }
 }

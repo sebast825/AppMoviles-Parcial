@@ -18,10 +18,11 @@ fun ClimaPage(
 
     val viewModel : ClimaViewModel = viewModel(
         factory = ClimaViewModelFactory(
-            repositorio = RepositorioApi()
+            repositorio = RepositorioApi(),
+            34.0901,
+            -118.4065
         )
     )
-
 
     
     ClimaView(
@@ -37,6 +38,22 @@ fun ClimaPage(
 
 class ClimaViewModelFactory(
     private val repositorio: Repositorio,
+    private val lat: Double,
+    private val lon: Double,
+) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ClimaViewModel::class.java)) {
+            return ClimaViewModel(repositorio,lat,lon) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+
+/*
+class ClimaViewModelFactory(
+    private val repositorio: Repositorio,
     //private val router: Router
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -48,4 +65,4 @@ class ClimaViewModelFactory(
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/
