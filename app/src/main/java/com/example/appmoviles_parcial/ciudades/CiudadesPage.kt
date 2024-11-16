@@ -19,7 +19,8 @@ fun CiudadesPage (
 ) {
     val viewModel : CiudadesViewModel = viewModel(
         factory = CiudadesViewModelFactory(
-            repositorio = RepositorioApi()
+            repositorio = RepositorioApi(),
+            navController = navHostController
 
         )
     )
@@ -32,13 +33,13 @@ fun CiudadesPage (
 }
 
 class CiudadesViewModelFactory(
-    private val repositorio: Repositorio
-
+    private val repositorio: Repositorio,
+    private val navController: NavHostController
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CiudadesViewModel::class.java)) {
-            return CiudadesViewModel(repositorio) as T
+            return CiudadesViewModel(repositorio, navController) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
