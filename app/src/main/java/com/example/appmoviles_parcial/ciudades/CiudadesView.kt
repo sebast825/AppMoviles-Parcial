@@ -21,15 +21,26 @@ fun CiudadesView (
     ) {
        Column {
            when(estado){
-               CiudadesEstado.Cargando -> TODO()
+               CiudadesEstado.Cargando -> CargandoView()
                is CiudadesEstado.Error -> TODO()
-               is CiudadesEstado.Resultado -> TODO()
+               is CiudadesEstado.Resultado -> ResultadoView()
                CiudadesEstado.Vacio -> VacioView()
            }
 
            Text(text = "Estamos en Ciudades View")
            Button(onClick = { ejecutar(CiudadesIntencion.CambiarPagina)}) {
                Text(text = "Cambiasr de pagina")
+           }
+
+           val namesCiudades = mutableListOf("Cordoba", "London", "Buenos Aires", "La Plata", "San Vicente")
+
+           namesCiudades.forEach{
+                   ciudad ->
+               Text(
+                   text = ciudad)
+               Button(onClick = { ejecutar(CiudadesIntencion.CambiarPagina)}) {
+                   Text(text = ciudad)
+               }
            }
        }
 
@@ -38,6 +49,29 @@ fun CiudadesView (
 @Composable
 fun VacioView(){
     Text(
-        text = "No hay anda que mostrar")
+        text = "No hay anda que mostrar CiudadVie")
+
+}
+
+@Composable
+fun CargandoView(){
+    Text(
+        text = "CARGANDO CiudadVie")
+
+}
+
+
+@Composable
+fun ResultadoView(){
+//ciudadesList : List<Ciudad>
+    val namesCiudades = mutableListOf("Cordoba", "London", "Buenos Aires", "La Plata", "San Vicente")
+
+    namesCiudades.forEach{
+        ciudad ->
+        Text(
+            text = ciudad)
+
+    }
+
 
 }

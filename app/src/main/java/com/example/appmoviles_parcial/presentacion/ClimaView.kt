@@ -74,7 +74,7 @@ fun ExitosoView(ciudad: String, descrpicnion: String, st: Double, temperatura: D
 @Composable
 fun VacioView(){
     Text(
-        text = "No hay anda que mostrar")
+        text = "No hay anda que mostrar ClimaPage")
 
 }
 
