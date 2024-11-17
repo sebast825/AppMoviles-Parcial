@@ -21,7 +21,7 @@ class CiudadesViewModel(
     val navController: NavController? = null
         ) : ViewModel(){
 
-    var ciudades : List<Ciudad> = emptyList()
+    var ciudad : String = "";
     var estado by mutableStateOf<CiudadesEstado>(CiudadesEstado.Vacio)
 
 
@@ -29,45 +29,30 @@ class CiudadesViewModel(
     fun ejecutar(intencion: CiudadesIntencion){
         when (intencion){
             CiudadesIntencion.CambiarPagina -> cambiarPagina()
-            is CiudadesIntencion.Buscar -> buscar(intencion.nombre)
-            is CiudadesIntencion.Seleccionar -> TODO()
+            is CiudadesIntencion.Buscar -> TODO()
+
+                //buscar(intencion.nombre)
+            is CiudadesIntencion.Seleccionar -> seleccionarCiudad(intencion.nombreCiudad)
         }
+    }
+
+    private fun seleccionarCiudad(nombreCiudad: String){
+        ciudad = nombreCiudad;
+        cambiarPagina()
     }
 
     private fun cambiarPagina(){
         estado = CiudadesEstado.Cargando
         Log.d("cambiar apg","te camnbiamos la pagina turro");
-        buscar("San Vicente")
+        //buscar("San Vicente")
         //Cordoba - London - Buenos Aires - La Plata - San Vicente
-viewModelScope.launch {
-    if (!ciudades.isEmpty()) {
-    Log.d("ciudad",ciudades[0].name)}
-}
 
 
 
-
-        navController?.navigate("Clima/La Plata")
+        navController?.navigate("Clima/$ciudad")
     }
 
-    private fun buscar( nombre: String){
 
-        estado = CiudadesEstado.Cargando
-        viewModelScope.launch {
-            try {
-                ciudades = repositorio.buscarCiudad(nombre)
-
-
-                if (ciudades.isEmpty()) {
-                    estado = CiudadesEstado.Vacio
-                } else {
-                    estado = CiudadesEstado.Resultado(ciudades)
-                }
-            } catch (exeption: Exception){
-                estado = CiudadesEstado.Error(exeption.message ?: "error desconocido")
-            }
-        }
-    }
 
 
 }

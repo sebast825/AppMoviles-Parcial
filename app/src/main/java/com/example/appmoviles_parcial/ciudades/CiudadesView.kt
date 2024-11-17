@@ -28,16 +28,13 @@ fun CiudadesView (
            }
 
            Text(text = "Estamos en Ciudades View")
-           Button(onClick = { ejecutar(CiudadesIntencion.CambiarPagina)}) {
-               Text(text = "Cambiasr de pagina")
-           }
 
            val namesCiudades = mutableListOf("Cordoba", "London", "Buenos Aires", "La Plata", "San Vicente")
 
            namesCiudades.forEach{
                    ciudad ->
 
-               Button(onClick = { ejecutar(CiudadesIntencion.CambiarPagina)}) {
+               Button(onClick = { ejecutar(CiudadesIntencion.Seleccionar(ciudad))}) {
                    Text(text = ciudad)
                }
            }

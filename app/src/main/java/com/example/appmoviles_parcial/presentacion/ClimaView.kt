@@ -9,6 +9,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,9 @@ fun ClimaView (
             is ClimaEstado.Exitoso -> ExitosoView(ciudad, estado.descripcion, estado.st, estado.temperatura)
             is ClimaEstado.Vacio -> VacioView()
 
+        }
+        LaunchedEffect(Unit) {
+            ejecutar(ClimaIntencion.buscarCiudad(ciudad))
         }
 
         Button(onClick = {
