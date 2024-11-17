@@ -3,6 +3,7 @@ package com.example.appmoviles_parcial.repositorio
 import android.util.Log
 import com.example.appmoviles_parcial.repositorio.modelos.Ciudad
 import com.example.appmoviles_parcial.repositorio.modelos.Clima
+import com.example.appmoviles_parcial.repositorio.modelos.ForecastDTO
 import com.example.appmoviles_parcial.repositorio.modelos.ListForecast
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -69,7 +70,22 @@ class RepositorioApi : Repositorio {
         }
     }
 
+    override suspend fun traerPronostico(nombre: String): List<ListForecast> {
 
+        val respuesta = cliente.get("https://api.openweathermap.org/data/2.5/forecast"){
+            parameter("q",nombre)
+            parameter("units","metric")
+            parameter("appid",apiKey)
+        }
+        if (respuesta.status == HttpStatusCode.OK){
+            val forecast = respuesta.body<ForecastDTO>()
+
+            return forecast.list
+        }else{
+            throw Exception()
+        }
+
+    }
 }
 
 

@@ -20,6 +20,8 @@ class ClimaViewModel (
 
     var estado by mutableStateOf<ClimaEstado>(ClimaEstado.Vacio)
     var ciudad : Ciudad? = null
+    val climaAndPronostico : ClimaAndPronostico =  ClimaAndPronostico()
+
 
     //es la unica funcion publica que ejecuta el viewModel, el resto son privadas
     fun ejecutar(intencion: ClimaIntencion){
@@ -51,25 +53,30 @@ class ClimaViewModel (
         }
 
     }
+
+
     fun getClima() {
         estado = ClimaEstado.Cargando
         viewModelScope.launch {
             try {
                 var latitud = ciudad?.lat ?: 0.0
                 var longitud = ciudad?.lon ?: 0.0
-                Log.d("lat", latitud.toString())
 
-                Log.d("lon", longitud.toString())
                 val clima = repositorio.traerClima(lat = latitud, lon = longitud)
-                Log.d("Clima", clima.name)
 
+               climaAndPronostico.ciudad = clima.name
+                climaAndPronostico.temperatura = clima.main.temp
+                climaAndPronostico.descripcion =  clima.weather.first().description
+                climaAndPronostico.st = clima.main.feels_like
+                estado = ClimaEstado.Exitoso(climaAndPronostico)
+                /*
                 estado = ClimaEstado.Exitoso(
                     ciudad = clima.name,
                     temperatura = clima.main.temp,
                     descripcion = clima.weather.first().description,
                     st = clima.main.feels_like,
 
-                )
+                )*/
             } catch (exception: Exception) {
                 estado = ClimaEstado.Error(exception.localizedMessage ?: "error desconocido")
             }
@@ -85,8 +92,6 @@ class ClimaViewModel (
 
                 if (ciudad == null) {
                     estado = ClimaEstado.Vacio
-                } else {
-                    estado = ClimaEstado.Exitoso()
                 }
             } catch (exeption: Exception){
                 Log.e("error", exeption.message ?: "ni idea")

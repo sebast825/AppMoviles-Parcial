@@ -34,7 +34,7 @@ fun ClimaView (
         when(estado){
             is ClimaEstado.Cargando -> CargandoView()
             is ClimaEstado.Error -> ErrorView(estado.mensaje)
-            is ClimaEstado.Exitoso -> ExitosoView(ciudad, estado.descripcion, estado.st, estado.temperatura)
+            is ClimaEstado.Exitoso -> ExitosoView(estado.data)
             is ClimaEstado.Vacio -> VacioView()
 
         }
@@ -67,12 +67,12 @@ fun ErrorView(mensaje: String){
 
 }
 @Composable
-fun ExitosoView(ciudad: String, descrpicnion: String, st: Double, temperatura: Double  ){
+fun ExitosoView(data : ClimaAndPronostico ){
     Column {
-        Text(text = ciudad)
-        Text(text = descrpicnion)
-        Text(text = st.toString())
-        Text(text = temperatura.toString())
+        Text(text = data.ciudad ?: "Ciudad no disponible")
+        Text(text = data.descripcion ?: "Descripción no disponible")
+        Text(text = data.st?.toString() ?: "Temperatura no disponible")
+        Text(text = data.temperatura?.toString() ?: "Temperatura no disponible")
 
     }
 

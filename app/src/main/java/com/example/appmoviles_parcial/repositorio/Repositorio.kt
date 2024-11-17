@@ -8,5 +8,5 @@ interface Repositorio {
     suspend fun traerPokemon(): String
     suspend fun buscarCiudad(ciudad: String): Ciudad
    suspend fun traerClima(lat: Double, lon: Double) : Clima
-   // suspend fun traerPronostico(nombre: String) : List<ListForecast>
+   suspend fun traerPronostico(nombre: String) : List<ListForecast>
 }
