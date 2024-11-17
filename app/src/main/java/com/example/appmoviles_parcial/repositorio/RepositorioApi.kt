@@ -76,6 +76,9 @@ class RepositorioApi : Repositorio {
             parameter("q",nombre)
             parameter("units","metric")
             parameter("appid",apiKey)
+
+
+
         }
         if (respuesta.status == HttpStatusCode.OK){
             val forecast = respuesta.body<ForecastDTO>()

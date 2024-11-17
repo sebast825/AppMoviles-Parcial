@@ -42,22 +42,37 @@ class ClimaViewModel (
             //estado = ClimaEstado.Error("No funca x ahora")
 
     }
+
     fun getInformacionCiudad(nameCiudad : String){
 
         viewModelScope.launch {
+            estado = ClimaEstado.Cargando
             val ciud = buscar(nameCiudad)
-            Log.d("nombre ciudad", ciud.toString() )
 
-            Log.d("nombre ciudad", ciudad?.name ?: "azsd")
             getClima()
+            traerPronostico()
+            estado = ClimaEstado.Exitoso(climaAndPronostico)
         }
 
     }
+    private suspend fun traerPronostico() {
 
+            try{
 
-    fun getClima() {
+                val forecast = repositorio.traerPronostico(ciudad?.name!!).filter { true }.take(5)
+                forecast.forEach { elem ->
+                    Log.d("forecast", elem.toString())
+                }
+                climaAndPronostico.pronostico = forecast
+            } catch (exception: Exception){
+                estado = ClimaEstado.Error(exception.message ?: "error desconocido")
+            }
+
+    }
+
+    private suspend fun getClima() {
         estado = ClimaEstado.Cargando
-        viewModelScope.launch {
+
             try {
                 var latitud = ciudad?.lat ?: 0.0
                 var longitud = ciudad?.lon ?: 0.0
@@ -68,7 +83,7 @@ class ClimaViewModel (
                 climaAndPronostico.temperatura = clima.main.temp
                 climaAndPronostico.descripcion =  clima.weather.first().description
                 climaAndPronostico.st = clima.main.feels_like
-                estado = ClimaEstado.Exitoso(climaAndPronostico)
+
                 /*
                 estado = ClimaEstado.Exitoso(
                     ciudad = clima.name,
@@ -81,11 +96,11 @@ class ClimaViewModel (
                 estado = ClimaEstado.Error(exception.localizedMessage ?: "error desconocido")
             }
 
-        }
+
     }
     private suspend fun buscar(nombre: String){
 
-        estado = ClimaEstado.Cargando
+
             try {
                 ciudad = repositorio.buscarCiudad(nombre)
                 Log.d("buscar", ciudad!!.name ?:"asd")

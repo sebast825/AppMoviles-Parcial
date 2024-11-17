@@ -13,7 +13,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 
 @Composable
@@ -42,13 +46,13 @@ fun ClimaView (
             ejecutar(ClimaIntencion.buscarCiudad(ciudad))
         }
 
-        Button(onClick = {
+      /*  Button(onClick = {
             Log.d("llega el boton","asd")
 
             ejecutar(ClimaIntencion.actualizarClima)
         }) {
             Text(text = "Refrescar")
-        }
+        }*/
     }
 }
 
@@ -68,6 +72,8 @@ fun ErrorView(mensaje: String){
 }
 @Composable
 fun ExitosoView(data : ClimaAndPronostico ){
+
+
     Column {
         Text(text = data.ciudad ?: "Ciudad no disponible")
         Text(text = data.descripcion ?: "Descripción no disponible")
@@ -75,6 +81,20 @@ fun ExitosoView(data : ClimaAndPronostico ){
         Text(text = data.temperatura?.toString() ?: "Temperatura no disponible")
 
     }
+
+    Column {
+        data.pronostico?.forEach{
+                pronostico ->
+            var fechaFormatiada = convertirTimestampAFecha(pronostico.dt)
+            Text(text = fechaFormatiada)
+
+            Text(text = pronostico.main.temp_max.toString())
+            Text(text = pronostico.main.temp_min.toString())
+
+
+        }
+    }
+
 
 }
 
@@ -85,21 +105,32 @@ fun VacioView(){
 
 }
 
+
+fun convertirTimestampAFecha(timestamp: Long): String {
+    // Crear un objeto Date con el timestamp (en milisegundos)
+    val fecha = Date(timestamp * 1000)  // El timestamp es en segundos, así que multiplicamos por 1000
+
+    // Formato de fecha deseado
+    val formato = SimpleDateFormat("dd/MM/yyyy")  // Solo la fecha, sin la hora
+    return formato.format(fecha)
+}
+
 /*
-@Preview (showBackground = true)
-@Composable
-fun ClimaViewCargando(){
-    ClimaView(estado = ClimaEstado.Cargando){}
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+fun convertirTimestampAFecha(timestamp: Long): String {
+    val instant = Instant.ofEpochSecond(timestamp)  // Convierte el timestamp a un Instant
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")  // Solo la fecha, sin la hora
+        .withZone(ZoneId.systemDefault())  // Usa la zona horaria predeterminada
+    return formatter.format(instant)
 }
 
-@Preview (showBackground = true)
-@Composable
-fun ClimaViewError(){
-    ClimaView(estado = ClimaEstado.Error("Fallo de no se que cosa")){}
+fun main() {
+    val timestamp = 1732309200L
+    println(convertirTimestampAFecha(timestamp))  // Salida: 23/09/2025
 }
 
-@Preview (showBackground = true)
-@Composable
-fun ClimaViewVacio(){
-    ClimaView(estado = ClimaEstado.Vacio){}
-}*/
+
+*/

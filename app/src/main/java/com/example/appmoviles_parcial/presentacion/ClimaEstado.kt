@@ -1,6 +1,7 @@
 package com.example.appmoviles_parcial.presentacion
 
 import com.example.appmoviles_parcial.repositorio.modelos.ForecastDTO
+import com.example.appmoviles_parcial.repositorio.modelos.ListForecast
 
 sealed class ClimaEstado {
     data object Vacio: ClimaEstado()
@@ -37,5 +38,5 @@ data class ClimaAndPronostico(
     var temperatura: Double? = null,
     var descripcion: String? = null,
     var st: Double? = null,
-    var pronostico: ForecastDTO? = null
+    var pronostico: List<ListForecast>? = null
 )
