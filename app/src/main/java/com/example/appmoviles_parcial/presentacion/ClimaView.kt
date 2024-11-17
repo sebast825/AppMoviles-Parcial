@@ -20,8 +20,10 @@ fun ClimaView (
     modifier: Modifier = Modifier,
     estado: ClimaEstado,
     //Unit es como void en c#
+    ciudad: String,
     ejecutar: (ClimaIntencion) -> Unit
-) {
+
+    ) {
 
     Column(
         modifier = modifier
@@ -31,10 +33,11 @@ fun ClimaView (
         when(estado){
             is ClimaEstado.Cargando -> CargandoView()
             is ClimaEstado.Error -> ErrorView(estado.mensaje)
-            is ClimaEstado.Exitoso -> ExitosoView(estado.ciudad, estado.descripcion, estado.st, estado.temperatura)
+            is ClimaEstado.Exitoso -> ExitosoView(ciudad, estado.descripcion, estado.st, estado.temperatura)
             is ClimaEstado.Vacio -> VacioView()
 
         }
+
         Button(onClick = {
             Log.d("llega el boton","asd")
 

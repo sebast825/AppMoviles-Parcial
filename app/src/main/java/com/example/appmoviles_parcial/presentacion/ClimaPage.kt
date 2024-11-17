@@ -13,7 +13,8 @@ import com.example.appmoviles_parcial.repositorio.RepositorioApi
 @Composable
 fun ClimaPage(
 
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    ciudad : String = ""
 ) {
 
     val viewModel : ClimaViewModel = viewModel(
@@ -27,7 +28,8 @@ fun ClimaPage(
     
     ClimaView(
         modifier = Modifier,
-        estado = viewModel.estado
+        estado = viewModel.estado,
+        ciudad = ciudad
 
     ){
         viewModel.ejecutar((it))

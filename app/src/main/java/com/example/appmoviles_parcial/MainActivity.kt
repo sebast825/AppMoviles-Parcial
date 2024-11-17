@@ -12,9 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.appmoviles_parcial.ciudades.CiudadesPage
 import com.example.appmoviles_parcial.presentacion.ClimaPage
 import com.example.appmoviles_parcial.ui.theme.AppMovilesParcialTheme
@@ -47,11 +49,14 @@ NavHost(navController = navController , startDestination = "Ciudad") {
         CiudadesPage(navHostController = navController)
     }
     composable(
-        route = "Clima"
+        route = "Clima/{ciudad}",
+                arguments = listOf(navArgument("ciudad"){
+            type = NavType.StringType
 
-    ){
+        })) {
+        val ciudad = it.arguments?.getString("ciudad") ?: ""
 
-            ClimaPage(modifier = Modifier)
+            ClimaPage(modifier = Modifier, ciudad = ciudad)
 
 
     }

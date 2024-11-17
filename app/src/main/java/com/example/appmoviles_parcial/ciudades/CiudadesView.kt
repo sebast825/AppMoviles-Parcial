@@ -36,8 +36,7 @@ fun CiudadesView (
 
            namesCiudades.forEach{
                    ciudad ->
-               Text(
-                   text = ciudad)
+
                Button(onClick = { ejecutar(CiudadesIntencion.CambiarPagina)}) {
                    Text(text = ciudad)
                }

@@ -47,7 +47,7 @@ viewModelScope.launch {
 
 
 
-        //navController?.navigate("Clima")
+        navController?.navigate("Clima/La Plata")
     }
 
     private fun buscar( nombre: String){
