@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.appmoviles_parcial.ciudades.CiudadesIntencion
 import java.text.SimpleDateFormat
 
 import java.util.Date
@@ -48,13 +50,18 @@ fun ClimaView (
             ejecutar(ClimaIntencion.buscarCiudad(ciudad))
         }
 
-      /*  Button(onClick = {
-            Log.d("llega el boton","asd")
 
-            ejecutar(ClimaIntencion.actualizarClima)
-        }) {
-            Text(text = "Refrescar")
-        }*/
+        Button(
+            onClick = { ejecutar(ClimaIntencion.cambiarCiudad) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "Volver",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(8.dp)
+            )
+
+        }
     }
 }
 
@@ -85,7 +92,7 @@ fun CargandoView() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "CARGANDO...",
+            text = "Cargando...",
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
@@ -96,7 +103,6 @@ fun CargandoView() {
 fun ErrorView(mensaje: String){
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -120,10 +126,10 @@ fun ExitosoView(data: ClimaAndPronostico) {
     ) {
         Column(
             modifier = Modifier
-                .weight(1f)
+              //  .weight(1f)
 
         ) {
-            Text(text = data.ciudad ?: "Ciudad no disponible", style = MaterialTheme.typography.headlineMedium)
+            Text(text = data.ciudad ?: "Ciudad no disponible", style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = data.descripcion ?: "Descripción no disponible", style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(8.dp))
@@ -140,11 +146,11 @@ fun ExitosoView(data: ClimaAndPronostico) {
 
         Column(
             modifier = Modifier
-                .weight(6f)
-                .padding(top = 100.dp)
+                //.weight(6f)
+                .padding(top = 50.dp)
 
         ) {
-            Text(text = "Pronostico Extendido", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "Pronostico Extendido", style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(10.dp))
 
             data.pronostico?.forEach { pronostico ->

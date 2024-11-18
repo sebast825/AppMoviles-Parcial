@@ -73,7 +73,7 @@ fun CargandoView() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "CARGANDO...",
+            text = "Cargando...",
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )

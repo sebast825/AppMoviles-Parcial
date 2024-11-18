@@ -58,7 +58,7 @@ NavHost(navController = navController , startDestination = "Ciudad",
         })) {
         val ciudad = it.arguments?.getString("ciudad") ?: ""
 
-            ClimaPage(modifier = Modifier, ciudad = ciudad)
+            ClimaPage(modifier = Modifier, ciudad = ciudad,navHostController = navController)
 
 
     }

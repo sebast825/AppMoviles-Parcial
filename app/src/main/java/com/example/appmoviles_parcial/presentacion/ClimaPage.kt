@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.appmoviles_parcial.repositorio.Repositorio
 import com.example.appmoviles_parcial.repositorio.RepositorioApi
 
@@ -14,14 +15,16 @@ import com.example.appmoviles_parcial.repositorio.RepositorioApi
 fun ClimaPage(
 
     modifier: Modifier = Modifier,
-    ciudad : String = ""
-) {
+    ciudad : String = "",
+    navHostController: NavHostController,
+
+    ) {
 
     val viewModel : ClimaViewModel = viewModel(
         factory = ClimaViewModelFactory(
             repositorio = RepositorioApi(),
-            34.0901,
-            -118.4065
+            navController = navHostController
+
         )
     )
 
@@ -40,13 +43,13 @@ fun ClimaPage(
 
 class ClimaViewModelFactory(
     private val repositorio: Repositorio,
-    private val lat: Double,
-    private val lon: Double,
+    private val navController: NavHostController
+
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ClimaViewModel::class.java)) {
-            return ClimaViewModel(repositorio,lat,lon) as T
+            return ClimaViewModel(repositorio,navController) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

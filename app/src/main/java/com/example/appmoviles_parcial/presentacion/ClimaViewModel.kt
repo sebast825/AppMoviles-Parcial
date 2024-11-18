@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import kotlinx.coroutines.time.delay
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.appmoviles_parcial.ciudades.CiudadesEstado
 import com.example.appmoviles_parcial.repositorio.Repositorio
 import com.example.appmoviles_parcial.repositorio.modelos.Ciudad
@@ -14,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class ClimaViewModel (
     val repositorio : Repositorio,
-    val lat : Double,
-    val lon : Double,
+    val navController: NavController? = null
+
 ): ViewModel() {
 
     var estado by mutableStateOf<ClimaEstado>(ClimaEstado.Vacio)
@@ -28,6 +29,7 @@ class ClimaViewModel (
         when (intencion){
             ClimaIntencion.actualizarClima -> actualizar()
             is ClimaIntencion.buscarCiudad -> getInformacionCiudad(intencion.ciudad)
+            ClimaIntencion.cambiarCiudad -> cambiarCiudad()
         }
     }
 
@@ -43,7 +45,12 @@ class ClimaViewModel (
 
     }
 
-    fun getInformacionCiudad(nameCiudad : String){
+    private fun cambiarCiudad(){
+        navController?.navigate("Ciudad")
+
+    }
+
+    private fun getInformacionCiudad(nameCiudad : String){
 
         viewModelScope.launch {
             estado = ClimaEstado.Cargando
@@ -52,6 +59,7 @@ class ClimaViewModel (
             getClima()
             traerPronostico()
             estado = ClimaEstado.Exitoso(climaAndPronostico)
+
         }
 
     }
