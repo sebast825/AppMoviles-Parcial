@@ -1,9 +1,14 @@
 package com.example.appmoviles_parcial.presentacion
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -70,33 +75,56 @@ fun ErrorView(mensaje: String){
         color = MaterialTheme.colorScheme.error)
 
 }
+
 @Composable
-fun ExitosoView(data : ClimaAndPronostico ){
+fun ExitosoView(data: ClimaAndPronostico) {
 
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
 
-    Column {
-        Text(text = data.ciudad ?: "Ciudad no disponible")
-        Text(text = data.descripcion ?: "Descripción no disponible")
-        Text(text = data.st?.toString() ?: "Temperatura no disponible")
-        Text(text = data.temperatura?.toString() ?: "Temperatura no disponible")
+        ) {
+            Text(text = data.ciudad ?: "Ciudad no disponible", style = MaterialTheme.typography.headlineMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = data.descripcion ?: "Descripción no disponible", style = MaterialTheme.typography.bodyLarge)
+            Spacer(modifier = Modifier.height(8.dp))
 
-    }
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(text = "Sensación Térmica:", style = MaterialTheme.typography.bodyLarge)
+                Text(text = data.st?.toString() ?: "No disponible", style = MaterialTheme.typography.bodyLarge)
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(text = "Temperatura:", style = MaterialTheme.typography.bodyLarge)
+                Text(text = data.temperatura?.toString() ?: "No disponible", style = MaterialTheme.typography.bodyLarge)
+            }   }
 
-    Column {
-        data.pronostico?.forEach{
-                pronostico ->
-            var fechaFormatiada = convertirTimestampAFecha(pronostico.dt)
-            Text(text = fechaFormatiada)
+        Column(
+            modifier = Modifier
+                .weight(6f)
+                .padding(top = 100.dp)
 
-            Text(text = pronostico.main.temp_max.toString())
-            Text(text = pronostico.main.temp_min.toString())
+        ) {
+            Text(text = "Pronostico Extendido", style = MaterialTheme.typography.headlineMedium)
+            Spacer(modifier = Modifier.height(10.dp))
 
-
+            data.pronostico?.forEach { pronostico ->
+                val fechaFormateada = convertirTimestampAFecha(pronostico.dt)
+                Text(text = fechaFormateada, style = MaterialTheme.typography.headlineSmall)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "Max: ${pronostico.main.temp_max}", style = MaterialTheme.typography.bodyMedium)
+                Text(text = "Min: ${pronostico.main.temp_min}", style = MaterialTheme.typography.bodyMedium)
+            }
         }
     }
-
-
 }
+
+
 
 @Composable
 fun VacioView(){

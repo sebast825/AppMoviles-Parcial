@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -29,22 +30,23 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AppMovilesParcialTheme {
-             /*   Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ClimaPage(modifier = Modifier.padding(innerPadding))
+                IrCiudadPage()
 
-                }*/
+                }
 
-                    IrCiudadPage()
+
 
             }
         }
     }
-}
+
 @Composable
 fun IrCiudadPage(){
     val navController = rememberNavController()
 
-NavHost(navController = navController , startDestination = "Ciudad") {
+NavHost(navController = navController , startDestination = "Ciudad",
+    modifier = Modifier.padding(top = 22.dp)
+) {
     composable(route = "Ciudad"){
         CiudadesPage(navHostController = navController)
     }

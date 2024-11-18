@@ -71,7 +71,6 @@ class ClimaViewModel (
     }
 
     private suspend fun getClima() {
-        estado = ClimaEstado.Cargando
 
             try {
                 var latitud = ciudad?.lat ?: 0.0
