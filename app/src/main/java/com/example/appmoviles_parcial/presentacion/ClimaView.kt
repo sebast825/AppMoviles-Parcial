@@ -10,18 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+
 import java.util.Date
 
 
@@ -61,20 +58,57 @@ fun ClimaView (
     }
 }
 
-@Composable
-fun CargandoView(){
 
-    Text(text = "Cargando")
+@Composable
+fun VacioView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "No hay nada que mostrar",
+
+            )
+    }
+}
+
+@Composable
+fun CargandoView() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "CARGANDO...",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+    }
 }
 
 @Composable
 fun ErrorView(mensaje: String){
-    Text(
-        text = mensaje,
-        style = MaterialTheme.typography.headlineLarge,
-        color = MaterialTheme.colorScheme.error)
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = mensaje,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+    }
 }
+
 
 @Composable
 fun ExitosoView(data: ClimaAndPronostico) {
@@ -116,9 +150,10 @@ fun ExitosoView(data: ClimaAndPronostico) {
             data.pronostico?.forEach { pronostico ->
                 val fechaFormateada = convertirTimestampAFecha(pronostico.dt)
                 Text(text = fechaFormateada, style = MaterialTheme.typography.headlineSmall)
-                Spacer(modifier = Modifier.height(8.dp))
                 Text(text = "Max: ${pronostico.main.temp_max}", style = MaterialTheme.typography.bodyMedium)
                 Text(text = "Min: ${pronostico.main.temp_min}", style = MaterialTheme.typography.bodyMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+
             }
         }
     }
@@ -126,12 +161,7 @@ fun ExitosoView(data: ClimaAndPronostico) {
 
 
 
-@Composable
-fun VacioView(){
-    Text(
-        text = "No hay anda que mostrar ClimaPage")
 
-}
 
 
 fun convertirTimestampAFecha(timestamp: Long): String {

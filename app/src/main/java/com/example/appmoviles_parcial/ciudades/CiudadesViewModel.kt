@@ -21,8 +21,10 @@ class CiudadesViewModel(
     val navController: NavController? = null
         ) : ViewModel(){
 
+    val namesCiudades = mutableListOf("Cordoba", "London", "Villa Crespo", "La Plata", "San Vicente")
+
     var ciudad : String = "";
-    var estado by mutableStateOf<CiudadesEstado>(CiudadesEstado.Vacio)
+    var estado by mutableStateOf<CiudadesEstado>(CiudadesEstado.Resultado(namesCiudades))
 
 
     //es la unica funcion publica que ejecuta el viewModel, el resto son privadas
