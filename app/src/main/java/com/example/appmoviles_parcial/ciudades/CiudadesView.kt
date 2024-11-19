@@ -39,7 +39,7 @@ fun CiudadesView (
                CiudadesEstado.Vacio -> VacioView()
            }
 
-           Text(text = "Estamos en Ciudades View")
+
 
 
 
@@ -87,13 +87,13 @@ fun CargandoView() {
 fun ResultadoView(ciudades: List<String>, ejecutar: (CiudadesIntencion) -> Unit) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Estamos en Ciudades View",
+            text = "Elegir Ciudad",
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )

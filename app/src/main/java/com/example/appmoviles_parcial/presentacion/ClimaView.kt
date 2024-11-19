@@ -121,12 +121,10 @@ fun ExitosoView(data: ClimaAndPronostico) {
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(16.dp)
     ) {
         Column(
             modifier = Modifier
-              //  .weight(1f)
 
         ) {
             Text(text = data.ciudad ?: "Ciudad no disponible", style = MaterialTheme.typography.headlineLarge)
@@ -155,7 +153,7 @@ fun ExitosoView(data: ClimaAndPronostico) {
 
             data.pronostico?.forEach { pronostico ->
                 val fechaFormateada = convertirTimestampAFecha(pronostico.dt)
-                Text(text = fechaFormateada, style = MaterialTheme.typography.headlineSmall)
+                Text(text = "${fechaFormateada} Hs", style = MaterialTheme.typography.headlineSmall)
                 Text(text = "Max: ${pronostico.main.temp_max}", style = MaterialTheme.typography.bodyMedium)
                 Text(text = "Min: ${pronostico.main.temp_min}", style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(8.dp))
@@ -175,7 +173,8 @@ fun convertirTimestampAFecha(timestamp: Long): String {
     val fecha = Date(timestamp * 1000)  // El timestamp es en segundos, así que multiplicamos por 1000
 
     // Formato de fecha deseado
-    val formato = SimpleDateFormat("dd/MM/yyyy")  // Solo la fecha, sin la hora
+    val formato = SimpleDateFormat("dd/MM/yyyy HH")
+    // Solo la fecha, sin la hora
     return formato.format(fecha)
 }
 

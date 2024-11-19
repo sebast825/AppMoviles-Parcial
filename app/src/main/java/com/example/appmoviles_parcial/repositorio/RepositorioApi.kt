@@ -63,7 +63,9 @@ class RepositorioApi : Repositorio {
             parameter("appid",apiKey)
         }
         if (respuesta.status == HttpStatusCode.OK){
+
             val clima = respuesta.body<Clima>()
+
             return clima
         }else{
             throw Exception()
